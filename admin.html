@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusTDAH — Dashboard Admin</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0D0D14;
+      color: #F0F0F5;
+      min-height: 100vh;
+    }
+    .header {
+      background: linear-gradient(135deg, #1A1A2E, #2A3D33);
+      padding: 32px 24px;
+      text-align: center;
+      border-bottom: 2px solid #7BC49A;
+    }
+    .header h1 { font-size: 24px; font-weight: 700; }
+    .header h1 span { color: #7BC49A; }
+    .header p { color: #888; font-size: 13px; margin-top: 4px; }
+    .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
+    .login-box {
+      background: #1E1E2E;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 400px;
+      margin: 60px auto;
+      text-align: center;
+    }
+    .login-box h2 { color: #7BC49A; margin-bottom: 16px; font-size: 18px; }
+    .login-box input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #12121C;
+      color: #F0F0F5;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .login-box button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      background: #7BC49A;
+      color: #12121C;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .login-box button:hover { background: #5B8A72; color: white; }
+    .login-error { color: #E07070; font-size: 13px; margin-top: 8px; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: #1E1E2E;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-card .icon { font-size: 32px; margin-bottom: 8px; }
+    .stat-card .value { font-size: 36px; font-weight: 800; color: #7BC49A; }
+    .stat-card .label { font-size: 13px; color: #888; margin-top: 4px; }
+    .stat-card.accent .value { color: #F0A57A; }
+    .stat-card.purple .value { color: #A599D1; }
+    .stat-card.blue .value { color: #8FB3D4; }
+    .chart-box {
+      background: #1E1E2E;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .chart-box h3 { color: #7BC49A; font-size: 16px; margin-bottom: 16px; }
+    .table-box {
+      background: #1E1E2E;
+      border-radius: 16px;
+      padding: 20px;
+      overflow-x: auto;
+    }
+    .table-box h3 { color: #7BC49A; font-size: 16px; margin-bottom: 12px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; color: #888; font-size: 12px; font-weight: 600; text-transform: uppercase; padding: 8px 12px; border-bottom: 1px solid #2E2E42; }
+    td { padding: 10px 12px; font-size: 14px; color: #D0D0E0; border-bottom: 1px solid #1A1A2E; }
+    tr:hover td { background: rgba(123,196,154,0.05); }
+    .refresh-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #2A3D33;
+      color: #7BC49A;
+      border: 1px solid #7BC49A;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+    .refresh-btn:hover { background: #7BC49A; color: #12121C; }
+    .loading { text-align: center; padding: 60px; color: #888; }
+    .loading .spinner { font-size: 40px; animation: spin 1s linear infinite; display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .logout-btn {
+      position: absolute;
+      top: 28px;
+      right: 24px;
+      background: none;
+      border: 1px solid #555;
+      color: #888;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .logout-btn:hover { border-color: #E07070; color: #E07070; }
+    .header { position: relative; }
+    td span { font-size: 13px; }
+    .search-box {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #12121C;
+      color: #F0F0F5;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .search-box::placeholder { color: #555; }
+  </style>
+</head>
+<body>
+  <div id="loginSection">
+    <div class="header">
+      <h1>\u{1F9E0} <span>FocusTDAH</span> \u2014 Admin</h1>
+      <p>Dashboard de suivi des inscriptions</p>
+    </div>
+    <div class="login-box">
+      <h2>\u{1F510} Connexion Admin</h2>
+      <input type="email" id="email" placeholder="Email admin" />
+      <input type="password" id="password" placeholder="Mot de passe" />
+      <button onclick="login()">Se connecter</button>
+      <div class="login-error" id="loginError"></div>
+    </div>
+  </div>
+  <div id="dashboardSection" style="display:none;">
+    <div class="header">
+      <h1>\u{1F9E0} <span>FocusTDAH</span> \u2014 Dashboard</h1>
+      <p id="lastUpdate">Derni\u00e8re mise \u00e0 jour : \u2014</p>
+      <button class="logout-btn" onclick="logout()">D\u00e9connexion</button>
+    </div>
+    <div class="container">
+      <button class="refresh-btn" onclick="loadStats()">\u{1F504} Actualiser</button>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="icon">\u{1F465}</div>
+          <div class="value" id="totalUsers">\u2014</div>
+          <div class="label">Inscrits au total</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="icon">\u{1F4E7}</div>
+          <div class="value" id="confirmedUsers">\u2014</div>
+          <div class="label">Emails confirm\u00e9s</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="icon">\u2705</div>
+          <div class="value" id="acceptedTerms">\u2014</div>
+          <div class="label">CGU accept\u00e9es</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="icon">\u{1F195}</div>
+          <div class="value" id="todayUsers">\u2014</div>
+          <div class="label">Aujourd'hui</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">\u{1F4C5}</div>
+          <div class="value" id="weekUsers">\u2014</div>
+          <div class="label">Cette semaine</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="icon">\u{1F4C6}</div>
+          <div class="value" id="monthUsers">\u2014</div>
+          <div class="label">Ce mois</div>
+        </div>
+      </div>
+      <div class="chart-box">
+        <h3>\u{1F4C8} Inscriptions par jour (30 derniers jours)</h3>
+        <canvas id="dailyChart" height="200"></canvas>
+      </div>
+      <div class="table-box">
+        <h3>\u{1F4CA} Inscriptions par mois</h3>
+        <table>
+          <thead><tr><th>Mois</th><th>Nouveaux inscrits</th></tr></thead>
+          <tbody id="monthlyTable"></tbody>
+        </table>
+      </div>
+      <div class="table-box" style="margin-top: 24px;">
+        <h3>\u{1F464} Liste des utilisateurs inscrits</h3>
+        <input type="text" class="search-box" id="userSearch" placeholder="\u{1F50D} Rechercher un pseudo ou email..." oninput="filterUsers()" />
+        <table>
+          <thead>
+            <tr>
+              <th>Pseudo</th>
+              <th>Email</th>
+              <th>Inscrit le</th>
+              <th>Email confirm\u00e9</th>
+              <th>CGU</th>
+            </tr>
+          </thead>
+          <tbody id="usersTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script>
+    const SUPABASE_URL = 'https://malysufgorlrvncvdmck.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hbHlzdWZnb3JscnZuY3ZkbWNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NzQyODEsImV4cCI6MjA4OTA1MDI4MX0.45bN9Pzbu7Srun3p8vjsH5P7yz3DDx5KzzBDJ2Xf-ek';
+    let accessToken = null;
+    let dailyChartInstance = null;
+    async function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errEl = document.getElementById('loginError');
+      errEl.textContent = '';
+      try {
+        const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (data.error || !data.access_token) {
+          errEl.textContent = data.error_description || data.msg || 'Identifiants incorrects';
+          return;
+        }
+        accessToken = data.access_token;
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('dashboardSection').style.display = 'block';
+        loadStats();
+      } catch (e) { errEl.textContent = 'Erreur de connexion'; }
+    }
+    function logout() {
+      accessToken = null;
+      document.getElementById('loginSection').style.display = 'block';
+      document.getElementById('dashboardSection').style.display = 'none';
+    }
+    async function supabaseRPC(fnName) {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/' + fnName, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + accessToken }
+      });
+      return res.json();
+    }
+    async function loadStats() {
+      try {
+        const stats = await supabaseRPC('get_registration_stats');
+        if (stats.error) { console.error('Erreur RPC:', stats); alert('Erreur: ' + (stats.message || 'Impossible de charger les stats.')); return; }
+        document.getElementById('totalUsers').textContent = stats.total_users || 0;
+        document.getElementById('confirmedUsers').textContent = stats.confirmed_users || 0;
+        document.getElementById('acceptedTerms').textContent = stats.accepted_terms || 0;
+        document.getElementById('todayUsers').textContent = stats.today || 0;
+        document.getElementById('weekUsers').textContent = stats.this_week || 0;
+        document.getElementById('monthUsers').textContent = stats.this_month || 0;
+        const byDay = (stats.by_day || []).reverse();
+        const labels = byDay.map(d => { const date = new Date(d.date); return date.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' }); });
+        const values = byDay.map(d => d.count);
+        if (dailyChartInstance) dailyChartInstance.destroy();
+        dailyChartInstance = new Chart(document.getElementById('dailyChart'), {
+          type: 'bar',
+          data: { labels, datasets: [{ label: 'Nouveaux inscrits', data: values, backgroundColor: 'rgba(123, 196, 154, 0.6)', borderColor: '#7BC49A', borderWidth: 1, borderRadius: 6 }] },
+          options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { color: '#888', stepSize: 1 }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { ticks: { color: '#888', maxRotation: 45 }, grid: { display: false } } } }
+        });
+        const byMonth = stats.by_month || [];
+        const monthNames = { '01':'Janvier','02':'F\u00e9vrier','03':'Mars','04':'Avril','05':'Mai','06':'Juin','07':'Juillet','08':'Ao\u00fbt','09':'Septembre','10':'Octobre','11':'Novembre','12':'D\u00e9cembre' };
+        const tbody = document.getElementById('monthlyTable');
+        tbody.innerHTML = byMonth.map(m => { const [year, month] = m.month.split('-'); const name = (monthNames[month] || month) + ' ' + year; return '<tr><td>' + name + '</td><td style="color:#7BC49A;font-weight:700;">' + m.count + '</td></tr>'; }).join('');
+        const users = stats.recent_users || [];
+        const usersBody = document.getElementById('usersTable');
+        usersBody.innerHTML = users.map(u => {
+          const date = new Date(u.created_at).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+          const confirmed = u.confirmed ? '<span style="color:#7BC49A;">\u2705 Oui</span>' : '<span style="color:#E07070;">\u274C Non</span>';
+          const terms = u.accepted_terms ? '<span style="color:#7BC49A;">\u2705</span>' : '<span style="color:#E07070;">\u274C</span>';
+          return '<tr><td style="font-weight:600;color:#A599D1;">' + (u.pseudo || '\u2014') + '</td><td>' + (u.email || '\u2014') + '</td><td>' + date + '</td><td>' + confirmed + '</td><td>' + terms + '</td></tr>';
+        }).join('');
+        document.getElementById('lastUpdate').textContent = 'Derni\u00e8re mise \u00e0 jour : ' + new Date().toLocaleString('fr-FR');
+      } catch (e) { console.error(e); alert('Erreur de chargement des stats'); }
+    }
+    function filterUsers() {
+      const query = document.getElementById('userSearch').value.toLowerCase();
+      const rows = document.querySelectorAll('#usersTable tr');
+      rows.forEach(row => { const text = row.textContent.toLowerCase(); row.style.display = text.includes(query) ? '' : 'none'; });
+    }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !accessToken) login(); });
+  </script>
+</body>
+</html>
