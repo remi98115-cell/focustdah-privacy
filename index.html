@@ -106,34 +106,7 @@
     .contact-box a { color: #7BC49A; font-weight: 600; text-decoration: none; }
     .contact-box a:hover { text-decoration: underline; }
     .update { font-size: 13px; color: #B8B8CC; text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid #2E2E42; }
-    .accept-section {
-      background: #1E1E2E;
-      border: 2px solid #7BC49A;
-      border-radius: 16px;
-      padding: 24px;
-      margin-top: 32px;
-      text-align: center;
-    }
-    .accept-section p { color: #D0D0E0; margin-bottom: 16px; }
-    .accept-btn {
-      background: #7BC49A;
-      color: #12121C;
-      border: none;
-      font-size: 16px;
-      font-weight: 700;
-      padding: 14px 40px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .accept-btn:hover { background: #5B8A72; color: white; }
-    .accepted-msg {
-      display: none;
-      color: #7BC49A;
-      font-size: 18px;
-      font-weight: 600;
-      padding: 14px;
-    }
+    
   </style>
 </head>
 <body>
@@ -254,11 +227,7 @@
       <h2>9. Modifications</h2>
       <p>Cette politique peut être modifiée. Les changements significatifs seront notifiés dans l'application.</p>
     </div>
-    <div class="accept-section" id="acceptSection">
-      <p>En utilisant FocusTDAH, vous confirmez avoir lu et accepté les <strong>conditions d'utilisation</strong> et la <strong>politique de confidentialité</strong> ci-dessus.</p>
-      <button class="accept-btn" id="acceptBtn" onclick="acceptTerms()">✓ J'accepte les conditions</button>
-      <div class="accepted-msg" id="acceptedMsg">✅ Conditions acceptées — Tu peux retourner sur l'application !</div>
-    </div>
+    
     <div class="contact-box" style="margin-top: 32px;">
       <p style="margin-bottom: 8px;"><strong>FocusTDAH</strong></p>
       <p style="margin-bottom: 4px;">Pour toute question :</p>
@@ -276,10 +245,7 @@
       event.target.classList.add('active');
       window.scrollTo({ top: 200, behavior: 'smooth' });
     }
-    function acceptTerms() {
-      document.getElementById('acceptBtn').style.display = 'none';
-      document.getElementById('acceptedMsg').style.display = 'block';
-    }
+    
     if (!window.location.hash.includes('access_token') && !window.location.search.includes('type=signup')) {
       document.getElementById('confirmBanner').style.display = 'none';
     }
