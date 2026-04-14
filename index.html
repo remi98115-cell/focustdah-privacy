@@ -21,6 +21,8 @@
     }
     .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
     .header p { font-size: 15px; opacity: 0.85; color: #B8B8CC; }
+
+    /* Bandeau confirmation email */
     .confirm-banner {
       background: #2A3D33;
       border: 1px solid #7BC49A;
@@ -32,11 +34,14 @@
     .confirm-banner .icon { font-size: 48px; margin-bottom: 12px; }
     .confirm-banner h2 { color: #7BC49A; font-size: 22px; margin-bottom: 8px; margin-top: 0; }
     .confirm-banner p { color: #D0D0E0; font-size: 15px; margin-bottom: 0; }
+
     .container {
       max-width: 720px;
       margin: 0 auto;
       padding: 32px 24px 64px;
     }
+
+    /* Navigation tabs */
     .tabs {
       display: flex;
       gap: 8px;
@@ -57,8 +62,10 @@
     }
     .tab-btn:hover { background: #1E1E2E; color: #F0F0F5; }
     .tab-btn.active { background: #7BC49A; color: #12121C; }
+
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+
     h2 {
       font-size: 20px;
       font-weight: 700;
@@ -77,6 +84,7 @@
     strong { color: #F0F0F5; }
     ul { margin: 0 0 14px 24px; font-size: 15px; color: #D0D0E0; }
     li { margin-bottom: 6px; }
+
     .warning-box {
       background: #3D2A1F;
       border: 1px solid #F0A57A;
@@ -86,6 +94,7 @@
     }
     .warning-box p { color: #F0A57A; margin-bottom: 0; }
     .warning-box strong { color: #F0A57A; }
+
     .disclaimer-box {
       background: #2D1F1F;
       border: 1px solid #E07070;
@@ -95,6 +104,7 @@
     }
     .disclaimer-box p { color: #F0B0B0; }
     .disclaimer-box strong { color: #E07070; }
+
     .contact-box {
       background: #1E1E2E;
       border: 1px solid #2E2E42;
@@ -105,33 +115,76 @@
     .contact-box p { color: #D0D0E0; }
     .contact-box a { color: #7BC49A; font-weight: 600; text-decoration: none; }
     .contact-box a:hover { text-decoration: underline; }
+
     .update { font-size: 13px; color: #B8B8CC; text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid #2E2E42; }
-    
+
+    .accept-section {
+      background: #1E1E2E;
+      border: 2px solid #7BC49A;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 32px;
+      text-align: center;
+    }
+    .accept-section p { color: #D0D0E0; margin-bottom: 16px; }
+    .accept-btn {
+      background: #7BC49A;
+      color: #12121C;
+      border: none;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 14px 40px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .accept-btn:hover { background: #5B8A72; color: white; }
+    .accepted-msg {
+      display: none;
+      color: #7BC49A;
+      font-size: 18px;
+      font-weight: 600;
+      padding: 14px;
+    }
   </style>
 </head>
 <body>
+
   <div class="header">
     <h1>🧠 FocusTDAH</h1>
     <p>Conditions d'utilisation & Politique de confidentialité</p>
   </div>
+
   <div class="container">
+
+    <!-- Bandeau confirmation email -->
     <div class="confirm-banner" id="confirmBanner">
       <div class="icon">✅</div>
       <h2>Email confirmé avec succès !</h2>
       <p>Ton compte est maintenant actif. Avant de continuer, prends connaissance des conditions d'utilisation ci-dessous.</p>
     </div>
+
+    <!-- Tabs -->
     <div class="tabs">
       <button class="tab-btn active" onclick="showTab('cgu')">📋 Conditions d'utilisation</button>
       <button class="tab-btn" onclick="showTab('privacy')">🔒 Confidentialité</button>
     </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- CONDITIONS GÉNÉRALES D'UTILISATION      -->
+    <!-- ═══════════════════════════════════════ -->
     <div id="tab-cgu" class="tab-content active">
+
       <h2>1. Acceptation des conditions</h2>
       <p>En créant un compte et en utilisant l'application <strong>FocusTDAH</strong>, vous acceptez sans réserve les présentes conditions d'utilisation. Si vous n'acceptez pas ces conditions, vous ne devez pas utiliser l'application.</p>
+
       <h2>2. Description du service</h2>
       <p>FocusTDAH est une application mobile d'aide à l'organisation et au bien-être destinée aux personnes atteintes de TDAH. Elle propose des fonctionnalités de gestion de tâches, de suivi d'humeur, de minuteur de concentration, de suivi du sommeil, de notes personnelles et d'un espace de chat familial.</p>
       <p><strong>L'application n'est pas un dispositif médical</strong> et ne se substitue en aucun cas à un avis, un diagnostic ou un traitement médical professionnel.</p>
+
       <h2>3. Compte utilisateur</h2>
       <p>Vous êtes responsable de la confidentialité de vos identifiants de connexion. Toute activité effectuée depuis votre compte est réputée avoir été effectuée par vous. En cas d'utilisation non autorisée de votre compte, vous devez nous en informer immédiatement.</p>
+
       <h2>4. Chat familial — Décharge de responsabilité</h2>
       <div class="disclaimer-box">
         <p><strong>IMPORTANT — LIMITATION DE RESPONSABILITÉ :</strong></p>
@@ -146,11 +199,39 @@
         <li>Respecter les autres membres de votre groupe</li>
       </ul>
       <p>L'éditeur se réserve le droit de supprimer tout compte utilisé de manière abusive, sans préavis ni indemnité.</p>
+
       <h2>5. Communauté — Espace public</h2>
-      <p>L'espace communautaire permet de partager des témoignages et astuces avec d'autres utilisateurs. Les mêmes règles que le chat familial s'appliquent. Les publications sont visibles par tous les utilisateurs de l'application.</p>
-      <div class="warning-box">
-        <p><strong>L'éditeur de FocusTDAH ne modère pas les contenus publiés dans l'espace communautaire et décline toute responsabilité quant à leur contenu.</strong> Un système de signalement est disponible. Les contenus signalés pourront être examinés et supprimés.</p>
-      </div>
+      <p>L'espace communautaire permet de partager des témoignages et astuces avec d'autres utilisateurs. Les publications sont visibles par tous les utilisateurs de l'application.</p>
+
+      <h3>5.1. Politique de tolérance zéro</h3>
+      <p>FocusTDAH applique une <strong>politique de tolérance zéro</strong> envers tout contenu ou comportement répréhensible, incluant mais sans s'y limiter :</p>
+      <ul>
+        <li>Harcèlement, menaces, intimidation ou discours de haine</li>
+        <li>Contenu sexuellement explicite, pornographique ou impliquant des mineurs</li>
+        <li>Contenu violent, dégradant ou glorifiant l'automutilation</li>
+        <li>Spam, publicité non sollicitée, arnaques</li>
+        <li>Usurpation d'identité, partage d'informations personnelles d'autrui</li>
+        <li>Contenu illégal au regard du droit français ou international</li>
+      </ul>
+
+      <h3>5.2. Outils de modération à ta disposition</h3>
+      <p>Chaque utilisateur dispose d'outils pour contrôler son expérience :</p>
+      <ul>
+        <li><strong>Signalement</strong> — Tout post inapproprié peut être signalé via le menu ⋯ du post. L'équipe examine les signalements sous 24 heures et supprime le contenu contraire aux règles.</li>
+        <li><strong>Blocage</strong> — Tu peux bloquer n'importe quel utilisateur à tout moment. Tu ne verras plus ses posts ni ses commentaires. La liste des utilisateurs bloqués est accessible depuis le forum (icône 🚫) et modifiable à tout moment.</li>
+        <li><strong>Suppression de tes propres posts</strong> — Tu peux supprimer tes publications à tout moment.</li>
+      </ul>
+
+      <h3>5.3. Engagement de l'éditeur</h3>
+      <p>L'éditeur s'engage à :</p>
+      <ul>
+        <li>Examiner tous les contenus signalés sous 24 heures</li>
+        <li>Supprimer sans délai tout contenu violant la politique de tolérance zéro</li>
+        <li>Bannir les comptes récidivistes</li>
+        <li>Coopérer avec les autorités en cas de contenu illégal</li>
+      </ul>
+      <p><strong>Contact modération :</strong> <a href="mailto:remi98115@gmail.com" style="color:#7BC49A;">remi98115@gmail.com</a> (réponse sous 24h ouvrées)</p>
+
       <h2>6. Limitation de responsabilité</h2>
       <p>L'application FocusTDAH est fournie <strong>"en l'état"</strong>, sans garantie d'aucune sorte, expresse ou implicite. L'éditeur ne garantit pas que :</p>
       <ul>
@@ -159,15 +240,24 @@
         <li>L'application répondra à vos besoins spécifiques</li>
       </ul>
       <p><strong>En aucun cas l'éditeur ne pourra être tenu responsable de tout dommage direct, indirect, accessoire, spécial ou consécutif résultant de l'utilisation ou de l'impossibilité d'utiliser l'application</strong>, y compris la perte de données, la perte de revenus ou tout autre préjudice.</p>
+
       <h2>7. Propriété intellectuelle</h2>
       <p>L'application FocusTDAH, son design, son code et son contenu sont la propriété de l'éditeur. Toute reproduction, modification ou distribution non autorisée est interdite.</p>
+
       <h2>8. Résiliation</h2>
       <p>Vous pouvez cesser d'utiliser l'application et supprimer votre compte à tout moment depuis les paramètres. L'éditeur se réserve le droit de suspendre ou supprimer votre compte en cas de violation des présentes conditions, sans préavis.</p>
+
       <h2>9. Droit applicable</h2>
       <p>Les présentes conditions sont régies par le droit français. Tout litige relatif à l'utilisation de l'application sera soumis à la compétence exclusive des tribunaux français.</p>
     </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- POLITIQUE DE CONFIDENTIALITÉ            -->
+    <!-- ═══════════════════════════════════════ -->
     <div id="tab-privacy" class="tab-content">
+
       <h2>1. Données collectées</h2>
+
       <h3>Données de compte</h3>
       <p>Lors de la création de votre compte, nous collectons :</p>
       <ul>
@@ -175,6 +265,7 @@
         <li>Un mot de passe (stocké de manière chiffrée)</li>
         <li>Un prénom ou pseudonyme (choisi par vous)</li>
       </ul>
+
       <h3>Données d'utilisation</h3>
       <p>L'application enregistre les données que vous saisissez volontairement :</p>
       <ul>
@@ -185,11 +276,13 @@
         <li><strong>Sommeil</strong> — heures de coucher/réveil, qualité du sommeil</li>
         <li><strong>Messages de chat</strong> — messages échangés dans votre groupe famille</li>
       </ul>
+
       <h3>Données techniques</h3>
       <ul>
         <li>Jeton de notification push (pour recevoir les notifications)</li>
         <li>Type d'appareil et système d'exploitation (collecté automatiquement)</li>
       </ul>
+
       <h2>2. Utilisation des données</h2>
       <p>Vos données sont utilisées exclusivement pour :</p>
       <ul>
@@ -199,6 +292,7 @@
         <li>Vous envoyer des notifications push (rappels, messages)</li>
       </ul>
       <p><strong>Nous ne vendons jamais vos données.</strong> Nous n'utilisons pas vos données à des fins publicitaires.</p>
+
       <h2>3. Stockage et sécurité</h2>
       <p>Vos données sont stockées via <strong>Supabase</strong> avec :</p>
       <ul>
@@ -206,6 +300,7 @@
         <li>Authentification sécurisée avec tokens JWT</li>
         <li>Politiques de sécurité au niveau des lignes (RLS)</li>
       </ul>
+
       <h2>4. Partage des données</h2>
       <p>Vos données ne sont partagées avec aucun tiers, sauf :</p>
       <ul>
@@ -213,30 +308,46 @@
         <li><strong>Communauté</strong> — publications visibles sous votre pseudonyme</li>
         <li><strong>Obligation légale</strong> — si la loi l'exige</li>
       </ul>
+
       <h2>5. Services tiers</h2>
       <ul>
         <li><strong>Supabase</strong> — base de données et authentification</li>
         <li><strong>Expo Push Notifications</strong> — notifications push</li>
       </ul>
+
       <h2>6. Conservation et suppression</h2>
       <p>Vos données sont conservées tant que votre compte est actif. Vous pouvez supprimer vos données ou votre compte à tout moment. Après suppression, les données sont effacées sous 30 jours.</p>
+
       <h2>7. Droits des utilisateurs (RGPD)</h2>
-      <p>Vous disposez des droits d'accès, de rectification, d'effacement, de portabilité et d'opposition. Pour les exercer : <a href="mailto:remi98115@gmail.com" style="color: #7BC49A;">remi98115@gmail.com</a></p>
+      <p>Vous disposez des droits d'accès, de rectification, d'effacement, de portabilité et d'opposition. Pour les exercer : <a href="mailto:reproauto28@gmail.com" style="color: #7BC49A;">reproauto28@gmail.com</a></p>
+
       <h2>8. Protection des mineurs</h2>
       <p>FocusTDAH n'est pas destinée aux enfants de moins de 13 ans.</p>
+
       <h2>9. Modifications</h2>
       <p>Cette politique peut être modifiée. Les changements significatifs seront notifiés dans l'application.</p>
     </div>
-    
+
+    <!-- Acceptation -->
+    <div class="accept-section" id="acceptSection">
+      <p>En utilisant FocusTDAH, vous confirmez avoir lu et accepté les <strong>conditions d'utilisation</strong> et la <strong>politique de confidentialité</strong> ci-dessus.</p>
+      <button class="accept-btn" id="acceptBtn" onclick="acceptTerms()">✓ J'accepte les conditions</button>
+      <div class="accepted-msg" id="acceptedMsg">✅ Conditions acceptées — Tu peux retourner sur l'application !</div>
+    </div>
+
+    <!-- Contact -->
     <div class="contact-box" style="margin-top: 32px;">
       <p style="margin-bottom: 8px;"><strong>FocusTDAH</strong></p>
       <p style="margin-bottom: 4px;">Pour toute question :</p>
-      <p style="margin-bottom: 0;">📧 <a href="mailto:remi98115@gmail.com">remi98115@gmail.com</a></p>
+      <p style="margin-bottom: 0;">📧 <a href="mailto:reproauto28@gmail.com">reproauto28@gmail.com</a></p>
     </div>
+
     <div class="update">
       Dernière mise à jour : 11 avril 2026
     </div>
+
   </div>
+
   <script>
     function showTab(tab) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -245,10 +356,17 @@
       event.target.classList.add('active');
       window.scrollTo({ top: 200, behavior: 'smooth' });
     }
-    
+
+    function acceptTerms() {
+      document.getElementById('acceptBtn').style.display = 'none';
+      document.getElementById('acceptedMsg').style.display = 'block';
+    }
+
+    // Masquer le bandeau si pas de confirmation email dans l'URL
     if (!window.location.hash.includes('access_token') && !window.location.search.includes('type=signup')) {
       document.getElementById('confirmBanner').style.display = 'none';
     }
   </script>
+
 </body>
 </html>
