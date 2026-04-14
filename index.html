@@ -92,7 +92,7 @@
       padding: 20px;
       margin: 20px 0;
     }
-    .warning-box p { color: #F0A57A; margin-bottom: 0; }
+    .warning-box p { color: $F0A57A; margin-bottom: 0; }
     .warning-box strong { color: #F0A57A; }
 
     .disclaimer-box {
@@ -118,34 +118,6 @@
 
     .update { font-size: 13px; color: #B8B8CC; text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid #2E2E42; }
 
-    .accept-section {
-      background: #1E1E2E;
-      border: 2px solid #7BC49A;
-      border-radius: 16px;
-      padding: 24px;
-      margin-top: 32px;
-      text-align: center;
-    }
-    .accept-section p { color: #D0D0E0; margin-bottom: 16px; }
-    .accept-btn {
-      background: #7BC49A;
-      color: #12121C;
-      border: none;
-      font-size: 16px;
-      font-weight: 700;
-      padding: 14px 40px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .accept-btn:hover { background: #5B8A72; color: white; }
-    .accepted-msg {
-      display: none;
-      color: #7BC49A;
-      font-size: 18px;
-      font-weight: 600;
-      padding: 14px;
-    }
   </style>
 </head>
 <body>
@@ -328,13 +300,6 @@
       <p>Cette politique peut être modifiée. Les changements significatifs seront notifiés dans l'application.</p>
     </div>
 
-    <!-- Acceptation -->
-    <div class="accept-section" id="acceptSection">
-      <p>En utilisant FocusTDAH, vous confirmez avoir lu et accepté les <strong>conditions d'utilisation</strong> et la <strong>politique de confidentialité</strong> ci-dessus.</p>
-      <button class="accept-btn" id="acceptBtn" onclick="acceptTerms()">✓ J'accepte les conditions</button>
-      <div class="accepted-msg" id="acceptedMsg">✅ Conditions acceptées — Tu peux retourner sur l'application !</div>
-    </div>
-
     <!-- Contact -->
     <div class="contact-box" style="margin-top: 32px;">
       <p style="margin-bottom: 8px;"><strong>FocusTDAH</strong></p>
@@ -355,11 +320,6 @@
       document.getElementById('tab-' + tab).classList.add('active');
       event.target.classList.add('active');
       window.scrollTo({ top: 200, behavior: 'smooth' });
-    }
-
-    function acceptTerms() {
-      document.getElementById('acceptBtn').style.display = 'none';
-      document.getElementById('acceptedMsg').style.display = 'block';
     }
 
     // Masquer le bandeau si pas de confirmation email dans l'URL
