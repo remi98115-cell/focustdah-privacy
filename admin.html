@@ -26,7 +26,6 @@
 
     .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
 
-    /* Live indicator */
     .live-badge {
       display: inline-flex;
       align-items: center;
@@ -53,8 +52,6 @@
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.4; transform: scale(0.8); }
     }
-
-    /* Login */
     .login-box {
       background: #1E1E2E;
       border-radius: 16px;
@@ -87,8 +84,6 @@
     }
     .login-box button:hover { background: #5B8A72; color: white; }
     .login-error { color: #E07070; font-size: 13px; margin-top: 8px; }
-
-    /* Cards */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -112,17 +107,12 @@
     .stat-card.accent .value { color: #F0A57A; }
     .stat-card.purple .value { color: #A599D1; }
     .stat-card.blue .value { color: #8FB3D4; }
-
-    .value-bump {
-      animation: bump 0.5s ease;
-    }
+    .value-bump { animation: bump 0.5s ease; }
     @keyframes bump {
       0% { transform: scale(1); }
       30% { transform: scale(1.3); }
       100% { transform: scale(1); }
     }
-
-    /* Chart */
     .chart-box {
       background: #1E1E2E;
       border-radius: 16px;
@@ -130,8 +120,6 @@
       margin-bottom: 24px;
     }
     .chart-box h3 { color: #7BC49A; font-size: 16px; margin-bottom: 16px; }
-
-    /* Table */
     .table-box {
       background: #1E1E2E;
       border-radius: 16px;
@@ -143,7 +131,6 @@
     th { text-align: left; color: #888; font-size: 12px; font-weight: 600; text-transform: uppercase; padding: 8px 12px; border-bottom: 1px solid #2E2E42; }
     td { padding: 10px 12px; font-size: 14px; color: #D0D0E0; border-bottom: 1px solid #1A1A2E; }
     tr:hover td { background: rgba(123,196,154,0.05); }
-
     .toolbar {
       display: flex;
       align-items: center;
@@ -165,7 +152,6 @@
       cursor: pointer;
     }
     .refresh-btn:hover { background: #7BC49A; color: #12121C; }
-
     .auto-refresh-toggle {
       display: inline-flex;
       align-items: center;
@@ -176,11 +162,9 @@
       user-select: none;
     }
     .auto-refresh-toggle input { accent-color: #7BC49A; width: 16px; height: 16px; cursor: pointer; }
-
     .loading { text-align: center; padding: 60px; color: #888; }
     .loading .spinner { font-size: 40px; animation: spin 1s linear infinite; display: inline-block; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
     .logout-btn {
       position: absolute;
       top: 28px;
@@ -194,7 +178,6 @@
       cursor: pointer;
     }
     .logout-btn:hover { border-color: #E07070; color: #E07070; }
-
     td span { font-size: 13px; }
     .search-box {
       width: 100%;
@@ -207,8 +190,6 @@
       margin-bottom: 12px;
     }
     .search-box::placeholder { color: #555; }
-
-    /* Toast notifications */
     .toast-container {
       position: fixed;
       top: 20px;
@@ -236,7 +217,6 @@
     .toast .toast-title { font-size: 14px; font-weight: 700; color: #7BC49A; }
     .toast .toast-msg { font-size: 12px; color: #AAA; margin-top: 2px; }
     .toast .toast-time { font-size: 11px; color: #555; margin-top: 4px; }
-
     @keyframes slideIn {
       from { transform: translateX(100%); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
@@ -245,17 +225,11 @@
       from { opacity: 1; }
       to { opacity: 0; transform: translateX(50px); }
     }
-
-    /* New row highlight */
-    .new-row {
-      animation: highlightRow 2s ease;
-    }
+    .new-row { animation: highlightRow 2s ease; }
     @keyframes highlightRow {
       0% { background: rgba(123, 196, 154, 0.3); }
       100% { background: transparent; }
     }
-
-    /* Countdown */
     .countdown {
       font-size: 12px;
       color: #555;
@@ -265,10 +239,8 @@
 </head>
 <body>
 
-  <!-- TOASTS -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <!-- LOGIN -->
   <div id="loginSection">
     <div class="header">
       <h1>🧠 <span>FocusTDAH</span> — Admin</h1>
@@ -283,7 +255,6 @@
     </div>
   </div>
 
-  <!-- DASHBOARD -->
   <div id="dashboardSection" style="display:none;">
     <div class="header">
       <h1>🧠 <span>FocusTDAH</span> — Dashboard</h1>
@@ -291,7 +262,6 @@
       <div class="live-badge"><div class="live-dot"></div> Live</div>
       <button class="logout-btn" onclick="logout()">Déconnexion</button>
     </div>
-
     <div class="container">
       <div class="toolbar">
         <button class="refresh-btn" onclick="loadStats()">🔄 Actualiser</button>
@@ -301,70 +271,27 @@
         </label>
         <span class="countdown" id="countdown"></span>
       </div>
-
-      <!-- Stats cards -->
       <div class="stats-grid">
-        <div class="stat-card">
-          <div class="icon">👥</div>
-          <div class="value" id="totalUsers">—</div>
-          <div class="label">Inscrits au total</div>
-        </div>
-        <div class="stat-card accent">
-          <div class="icon">📧</div>
-          <div class="value" id="confirmedUsers">—</div>
-          <div class="label">Emails confirmés</div>
-        </div>
-        <div class="stat-card purple">
-          <div class="icon">✅</div>
-          <div class="value" id="acceptedTerms">—</div>
-          <div class="label">CGU acceptées</div>
-        </div>
-        <div class="stat-card blue">
-          <div class="icon">🆕</div>
-          <div class="value" id="todayUsers">—</div>
-          <div class="label">Aujourd'hui</div>
-        </div>
-        <div class="stat-card">
-          <div class="icon">📅</div>
-          <div class="value" id="weekUsers">—</div>
-          <div class="label">Cette semaine</div>
-        </div>
-        <div class="stat-card accent">
-          <div class="icon">📆</div>
-          <div class="value" id="monthUsers">—</div>
-          <div class="label">Ce mois</div>
-        </div>
+        <div class="stat-card"><div class="icon">👥</div><div class="value" id="totalUsers">—</div><div class="label">Inscrits au total</div></div>
+        <div class="stat-card accent"><div class="icon">📧</div><div class="value" id="confirmedUsers">—</div><div class="label">Emails confirmés</div></div>
+        <div class="stat-card purple"><div class="icon">✅</div><div class="value" id="acceptedTerms">—</div><div class="label">CGU acceptées</div></div>
+        <div class="stat-card blue"><div class="icon">🆕</div><div class="value" id="todayUsers">—</div><div class="label">Aujourd'hui</div></div>
+        <div class="stat-card"><div class="icon">📅</div><div class="value" id="weekUsers">—</div><div class="label">Cette semaine</div></div>
+        <div class="stat-card accent"><div class="icon">📆</div><div class="value" id="monthUsers">—</div><div class="label">Ce mois</div></div>
       </div>
-
-      <!-- Chart -->
       <div class="chart-box">
         <h3>📈 Inscriptions par jour (30 derniers jours)</h3>
         <canvas id="dailyChart" height="200"></canvas>
       </div>
-
-      <!-- Table par mois -->
       <div class="table-box">
         <h3>📊 Inscriptions par mois</h3>
-        <table>
-          <thead><tr><th>Mois</th><th>Nouveaux inscrits</th></tr></thead>
-          <tbody id="monthlyTable"></tbody>
-        </table>
+        <table><thead><tr><th>Mois</th><th>Nouveaux inscrits</th></tr></thead><tbody id="monthlyTable"></tbody></table>
       </div>
-
-      <!-- Liste des utilisateurs -->
       <div class="table-box" style="margin-top: 24px;">
         <h3>👤 Derniers inscrits</h3>
         <input type="text" class="search-box" id="userSearch" placeholder="🔍 Rechercher un pseudo ou email..." oninput="filterUsers()" />
         <table>
-          <thead>
-            <tr>
-              <th>Pseudo</th>
-              <th>Email</th>
-              <th>Inscrit le</th>
-              <th>Email confirmé</th>
-              <th>CGU</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Pseudo</th><th>Email</th><th>Inscrit le</th><th>Email confirmé</th><th>CGU</th></tr></thead>
           <tbody id="usersTable"></tbody>
         </table>
       </div>
@@ -374,7 +301,6 @@
   <script>
     const SUPABASE_URL = 'https://malysufgorlrvncvdmck.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hbHlzdWZnb3JscnZuY3ZkbWNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NzQyODEsImV4cCI6MjA4OTA1MDI4MX0.45bN9Pzbu7Srun3p8vjsH5P7yz3DDx5KzzBDJ2Xf-ek';
-
     let accessToken = null;
     let dailyChartInstance = null;
     let autoRefreshInterval = null;
@@ -382,327 +308,144 @@
     let countdownValue = 30;
     let realtimeWs = null;
     let previousTotal = null;
+    const ADMIN_EMAIL = 'remi98115@gmail.com';
 
-    // ─── LOGIN ───
     async function login() {
-      const email = document.getElementById('email').value;
+      const email = document.getElementById('email').value.trim().toLowerCase();
       const password = document.getElementById('password').value;
       const errEl = document.getElementById('loginError');
       errEl.textContent = '';
-
+      if (email !== ADMIN_EMAIL) { errEl.textContent = 'Accès non autorisé.'; return; }
       try {
-        const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+        const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_ANON_KEY,
-          },
+          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
           body: JSON.stringify({ email, password })
         });
         const data = await res.json();
-        if (data.error || !data.access_token) {
-          errEl.textContent = data.error_description || data.msg || 'Identifiants incorrects';
-          return;
-        }
+        if (data.error || !data.access_token) { errEl.textContent = data.error_description || data.msg || 'Identifiants incorrects'; return; }
         accessToken = data.access_token;
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('dashboardSection').style.display = 'block';
-        loadStats();
-        startAutoRefresh();
-        connectRealtime();
-      } catch (e) {
-        errEl.textContent = 'Erreur de connexion';
-      }
+        loadStats(); startAutoRefresh(); connectRealtime();
+      } catch (e) { errEl.textContent = 'Erreur de connexion'; }
     }
 
     function logout() {
-      accessToken = null;
-      stopAutoRefresh();
-      disconnectRealtime();
+      accessToken = null; stopAutoRefresh(); disconnectRealtime();
       document.getElementById('loginSection').style.display = 'block';
       document.getElementById('dashboardSection').style.display = 'none';
     }
 
-    // ─── SUPABASE RPC ───
     async function supabaseRPC(fnName) {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fnName}`, {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/' + fnName, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${accessToken}`,
-        },
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + accessToken }
       });
       return res.json();
     }
 
-    // ─── LOAD STATS ───
     async function loadStats() {
       try {
         const stats = await supabaseRPC('get_registration_stats');
-
-        if (stats.error) {
-          console.error('Erreur RPC:', stats);
-          alert('Erreur: ' + (stats.message || 'Impossible de charger les stats.'));
-          return;
-        }
-
-        // Detect changes for animation
+        if (stats.error) { console.error('Erreur RPC:', stats); alert('Erreur: ' + (stats.message || 'Impossible de charger les stats.')); return; }
         const newTotal = stats.total_users || 0;
         const changed = previousTotal !== null && newTotal !== previousTotal;
         previousTotal = newTotal;
-
-        // Cards with animation
         updateCard('totalUsers', stats.total_users || 0, changed);
         updateCard('confirmedUsers', stats.confirmed_users || 0, changed);
         updateCard('acceptedTerms', stats.accepted_terms || 0, changed);
         updateCard('todayUsers', stats.today || 0, changed);
         updateCard('weekUsers', stats.this_week || 0, changed);
         updateCard('monthUsers', stats.this_month || 0, changed);
-
-        // Chart
         const byDay = (stats.by_day || []).reverse();
-        const labels = byDay.map(d => {
-          const date = new Date(d.date);
-          return date.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
-        });
+        const labels = byDay.map(d => { const date = new Date(d.date); return date.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' }); });
         const values = byDay.map(d => d.count);
-
         if (dailyChartInstance) dailyChartInstance.destroy();
         dailyChartInstance = new Chart(document.getElementById('dailyChart'), {
           type: 'bar',
-          data: {
-            labels,
-            datasets: [{
-              label: 'Nouveaux inscrits',
-              data: values,
-              backgroundColor: 'rgba(123, 196, 154, 0.6)',
-              borderColor: '#7BC49A',
-              borderWidth: 1,
-              borderRadius: 6,
-            }]
-          },
-          options: {
-            responsive: true,
-            plugins: { legend: { display: false } },
-            scales: {
-              y: {
-                beginAtZero: true,
-                ticks: { color: '#888', stepSize: 1 },
-                grid: { color: 'rgba(255,255,255,0.05)' }
-              },
-              x: {
-                ticks: { color: '#888', maxRotation: 45 },
-                grid: { display: false }
-              }
-            }
-          }
+          data: { labels, datasets: [{ label: 'Nouveaux inscrits', data: values, backgroundColor: 'rgba(123, 196, 154, 0.6)', borderColor: '#7BC49A', borderWidth: 1, borderRadius: 6 }] },
+          options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { color: '#888', stepSize: 1 }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { ticks: { color: '#888', maxRotation: 45 }, grid: { display: false } } } }
         });
-
-        // Monthly table
         const byMonth = stats.by_month || [];
         const monthNames = { '01':'Janvier','02':'Février','03':'Mars','04':'Avril','05':'Mai','06':'Juin','07':'Juillet','08':'Août','09':'Septembre','10':'Octobre','11':'Novembre','12':'Décembre' };
-        document.getElementById('monthlyTable').innerHTML = byMonth.map(m => {
-          const [year, month] = m.month.split('-');
-          const name = (monthNames[month] || month) + ' ' + year;
-          return `<tr><td>${name}</td><td style="color:#7BC49A;font-weight:700;">${m.count}</td></tr>`;
-        }).join('');
-
-        // Users table
+        document.getElementById('monthlyTable').innerHTML = byMonth.map(m => { const [year, month] = m.month.split('-'); const name = (monthNames[month] || month) + ' ' + year; return '<tr><td>' + name + '</td><td style="color:#7BC49A;font-weight:700;">' + m.count + '</td></tr>'; }).join('');
         const users = stats.recent_users || [];
         document.getElementById('usersTable').innerHTML = users.map(u => {
           const date = new Date(u.created_at).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
           const confirmed = u.confirmed ? '<span style="color:#7BC49A;">✅ Oui</span>' : '<span style="color:#E07070;">❌ Non</span>';
           const terms = u.accepted_terms ? '<span style="color:#7BC49A;">✅</span>' : '<span style="color:#E07070;">❌</span>';
-          return `<tr>
-            <td style="font-weight:600;color:#A599D1;">${u.pseudo || '—'}</td>
-            <td>${u.email || '—'}</td>
-            <td>${date}</td>
-            <td>${confirmed}</td>
-            <td>${terms}</td>
-          </tr>`;
+          return '<tr><td style="font-weight:600;color:#A599D1;">' + (u.pseudo || '—') + '</td><td>' + (u.email || '—') + '</td><td>' + date + '</td><td>' + confirmed + '</td><td>' + terms + '</td></tr>';
         }).join('');
-
         document.getElementById('lastUpdate').textContent = 'Dernière mise à jour : ' + new Date().toLocaleString('fr-FR');
-
-      } catch (e) {
-        console.error(e);
-      }
+      } catch (e) { console.error(e); }
     }
 
     function updateCard(id, value, animate) {
       const el = document.getElementById(id);
       const oldValue = el.textContent;
       el.textContent = value;
-      if (animate && oldValue !== String(value)) {
-        el.classList.remove('value-bump');
-        void el.offsetWidth; // force reflow
-        el.classList.add('value-bump');
-      }
+      if (animate && oldValue !== String(value)) { el.classList.remove('value-bump'); void el.offsetWidth; el.classList.add('value-bump'); }
     }
 
-    // ─── AUTO REFRESH ───
     function startAutoRefresh() {
-      stopAutoRefresh();
-      countdownValue = 30;
-      updateCountdown();
-      countdownInterval = setInterval(() => {
-        countdownValue--;
-        updateCountdown();
-        if (countdownValue <= 0) {
-          countdownValue = 30;
-          loadStats();
-        }
-      }, 1000);
+      stopAutoRefresh(); countdownValue = 30; updateCountdown();
+      countdownInterval = setInterval(() => { countdownValue--; updateCountdown(); if (countdownValue <= 0) { countdownValue = 30; loadStats(); } }, 1000);
     }
-
     function stopAutoRefresh() {
       if (countdownInterval) clearInterval(countdownInterval);
       countdownInterval = null;
       document.getElementById('countdown').textContent = '';
     }
-
     function toggleAutoRefresh() {
-      if (document.getElementById('autoRefreshToggle').checked) {
-        startAutoRefresh();
-      } else {
-        stopAutoRefresh();
-      }
+      if (document.getElementById('autoRefreshToggle').checked) { startAutoRefresh(); } else { stopAutoRefresh(); }
     }
+    function updateCountdown() { document.getElementById('countdown').textContent = 'Refresh dans ' + countdownValue + 's'; }
 
-    function updateCountdown() {
-      document.getElementById('countdown').textContent = `Refresh dans ${countdownValue}s`;
-    }
-
-    // ─── REALTIME (WebSocket) ───
     function connectRealtime() {
       disconnectRealtime();
-
       const wsUrl = SUPABASE_URL.replace('https://', 'wss://') + '/realtime/v1/websocket?apikey=' + SUPABASE_ANON_KEY + '&vsn=1.0.0';
       realtimeWs = new WebSocket(wsUrl);
-
       realtimeWs.onopen = () => {
         console.log('Realtime connected');
-        // Join channel for user_profiles table
-        const joinMsg = {
-          topic: 'realtime:public:user_profiles',
-          event: 'phx_join',
-          payload: {
-            config: {
-              broadcast: { self: false },
-              presence: { key: '' },
-              postgres_changes: [{
-                event: 'INSERT',
-                schema: 'public',
-                table: 'user_profiles'
-              }]
-            }
-          },
-          ref: '1'
-        };
-        realtimeWs.send(JSON.stringify(joinMsg));
-
-        // Heartbeat
-        setInterval(() => {
-          if (realtimeWs && realtimeWs.readyState === WebSocket.OPEN) {
-            realtimeWs.send(JSON.stringify({
-              topic: 'phoenix',
-              event: 'heartbeat',
-              payload: {},
-              ref: String(Date.now())
-            }));
-          }
-        }, 30000);
+        realtimeWs.send(JSON.stringify({ topic: 'realtime:public:user_profiles', event: 'phx_join', payload: { config: { broadcast: { self: false }, presence: { key: '' }, postgres_changes: [{ event: 'INSERT', schema: 'public', table: 'user_profiles' }] } }, ref: '1' }));
+        setInterval(() => { if (realtimeWs && realtimeWs.readyState === WebSocket.OPEN) { realtimeWs.send(JSON.stringify({ topic: 'phoenix', event: 'heartbeat', payload: {}, ref: String(Date.now()) })); } }, 30000);
       };
-
       realtimeWs.onmessage = (event) => {
         try {
           const msg = JSON.parse(event.data);
           if (msg.event === 'postgres_changes' || msg.event === 'INSERT') {
-            const record = msg.payload?.record || msg.payload?.data?.record;
-            if (record) {
-              showToast(record.pseudo || record.email || 'Nouvel utilisateur');
-              // Refresh stats after a short delay to let DB settle
-              setTimeout(() => loadStats(), 1500);
-            }
+            const record = msg.payload && (msg.payload.record || (msg.payload.data && msg.payload.data.record));
+            if (record) { showToast(record.pseudo || record.email || 'Nouvel utilisateur'); setTimeout(() => loadStats(), 1500); }
           }
         } catch (e) {}
       };
-
-      realtimeWs.onclose = () => {
-        console.log('Realtime disconnected');
-        // Auto-reconnect after 5s
-        if (accessToken) {
-          setTimeout(() => connectRealtime(), 5000);
-        }
-      };
+      realtimeWs.onclose = () => { console.log('Realtime disconnected'); if (accessToken) { setTimeout(() => connectRealtime(), 5000); } };
     }
+    function disconnectRealtime() { if (realtimeWs) { realtimeWs.close(); realtimeWs = null; } }
 
-    function disconnectRealtime() {
-      if (realtimeWs) {
-        realtimeWs.close();
-        realtimeWs = null;
-      }
-    }
-
-    // ─── TOAST NOTIFICATIONS ───
     function showToast(name) {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
       toast.className = 'toast';
       const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      toast.innerHTML = `
-        <div class="toast-icon">🎉</div>
-        <div class="toast-content">
-          <div class="toast-title">Nouvel inscrit !</div>
-          <div class="toast-msg">${escapeHtml(name)} vient de s'inscrire</div>
-          <div class="toast-time">${now}</div>
-        </div>
-      `;
+      toast.innerHTML = '<div class="toast-icon">🎉</div><div class="toast-content"><div class="toast-title">Nouvel inscrit !</div><div class="toast-msg">' + escapeHtml(name) + ' vient de s\'inscrire</div><div class="toast-time">' + now + '</div></div>';
       container.prepend(toast);
-
-      // Play subtle sound
       try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.frequency.value = 800;
-        osc.type = 'sine';
-        gain.gain.value = 0.1;
-        osc.start();
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-        osc.stop(ctx.currentTime + 0.3);
+        const osc = ctx.createOscillator(); const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.frequency.value = 800; osc.type = 'sine'; gain.gain.value = 0.1;
+        osc.start(); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3); osc.stop(ctx.currentTime + 0.3);
       } catch (e) {}
-
-      // Remove after 5s
-      setTimeout(() => {
-        toast.remove();
-      }, 5000);
+      setTimeout(() => { toast.remove(); }, 5000);
     }
-
-    function escapeHtml(str) {
-      const div = document.createElement('div');
-      div.textContent = str;
-      return div.innerHTML;
-    }
-
-    // ─── SEARCH ───
+    function escapeHtml(str) { const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
     function filterUsers() {
       const query = document.getElementById('userSearch').value.toLowerCase();
-      const rows = document.querySelectorAll('#usersTable tr');
-      rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(query) ? '' : 'none';
-      });
+      document.querySelectorAll('#usersTable tr').forEach(row => { row.style.display = row.textContent.toLowerCase().includes(query) ? '' : 'none'; });
     }
-
-    // ─── KEYBOARD ───
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !accessToken) login();
-    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !accessToken) login(); });
   </script>
-
 </body>
 </html>
