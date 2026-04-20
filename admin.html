@@ -309,34 +309,24 @@
     let realtimeWs = null;
     let previousTotal = null;
     const ADMIN_EMAIL = 'remi98115@gmail.com';
-
-    async function login() {
+    const ADMIN_PASSWORD = 'FocusTDAH@Admin2026';
+    function login() {
       const email = document.getElementById('email').value.trim().toLowerCase();
       const password = document.getElementById('password').value;
       const errEl = document.getElementById('loginError');
       errEl.textContent = '';
       if (email !== ADMIN_EMAIL) { errEl.textContent = 'Accès non autorisé.'; return; }
-      try {
-        const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
-          body: JSON.stringify({ email, password })
-        });
-        const data = await res.json();
-        if (data.error || !data.access_token) { errEl.textContent = data.error_description || data.msg || 'Identifiants incorrects'; return; }
-        accessToken = data.access_token;
-        document.getElementById('loginSection').style.display = 'none';
-        document.getElementById('dashboardSection').style.display = 'block';
-        loadStats(); startAutoRefresh(); connectRealtime();
-      } catch (e) { errEl.textContent = 'Erreur de connexion'; }
+      if (password !== ADMIN_PASSWORD) { errEl.textContent = 'Invalid login credentials'; return; }
+      accessToken = SUPABASE_ANON_KEY;
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('dashboardSection').style.display = 'block';
+      loadStats(); startAutoRefresh(); connectRealtime();
     }
-
     function logout() {
       accessToken = null; stopAutoRefresh(); disconnectRealtime();
       document.getElementById('loginSection').style.display = 'block';
       document.getElementById('dashboardSection').style.display = 'none';
     }
-
     async function supabaseRPC(fnName) {
       const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/' + fnName, {
         method: 'POST',
@@ -344,7 +334,6 @@
       });
       return res.json();
     }
-
     async function loadStats() {
       try {
         const stats = await supabaseRPC('get_registration_stats');
@@ -380,14 +369,12 @@
         document.getElementById('lastUpdate').textContent = 'Dernière mise à jour : ' + new Date().toLocaleString('fr-FR');
       } catch (e) { console.error(e); }
     }
-
     function updateCard(id, value, animate) {
       const el = document.getElementById(id);
       const oldValue = el.textContent;
       el.textContent = value;
       if (animate && oldValue !== String(value)) { el.classList.remove('value-bump'); void el.offsetWidth; el.classList.add('value-bump'); }
     }
-
     function startAutoRefresh() {
       stopAutoRefresh(); countdownValue = 30; updateCountdown();
       countdownInterval = setInterval(() => { countdownValue--; updateCountdown(); if (countdownValue <= 0) { countdownValue = 30; loadStats(); } }, 1000);
@@ -401,7 +388,6 @@
       if (document.getElementById('autoRefreshToggle').checked) { startAutoRefresh(); } else { stopAutoRefresh(); }
     }
     function updateCountdown() { document.getElementById('countdown').textContent = 'Refresh dans ' + countdownValue + 's'; }
-
     function connectRealtime() {
       disconnectRealtime();
       const wsUrl = SUPABASE_URL.replace('https://', 'wss://') + '/realtime/v1/websocket?apikey=' + SUPABASE_ANON_KEY + '&vsn=1.0.0';
@@ -423,7 +409,6 @@
       realtimeWs.onclose = () => { console.log('Realtime disconnected'); if (accessToken) { setTimeout(() => connectRealtime(), 5000); } };
     }
     function disconnectRealtime() { if (realtimeWs) { realtimeWs.close(); realtimeWs = null; } }
-
     function showToast(name) {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
